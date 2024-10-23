@@ -19,8 +19,10 @@ class HomeController extends Controller
     }
 
     public function gallery() {
-        return view('/gallery');
+        $galleries = Gallery::all();  // Pastikan galeri diambil dari database
+        return view('gallery.index', compact('galleries'));
     }
+    
 
     public function kontak() {
         return view('/kontak');

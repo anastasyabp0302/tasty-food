@@ -181,8 +181,8 @@
         <a href="/">HOME</a>
         <a href="#">TENTANG</a>
         <a href="/berita">BERITA</a>
-        <a href="#">GALERI</a>
-        <a href="#">KONTAK</a>
+        <a href="/user/gallery">GALERI</a>
+        <a href="/kontak">KONTAK</a>
     </nav>
     <div class="header-content">
         <h2>TENTANG KAMI</h2>

@@ -8,123 +8,105 @@ use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        // Ambil semua data news
-        // sama dengan => Select * from news;
-        $news = News::all();
+       
+        $news = News::all(); 
 
-        // Tampilkan halaman index berita dengan rows berita 
+        
         return view('news.index', compact('news'));
     }
+    public function berita() {
+        
+        $news = News::all(); 
+        return view('berita', compact('news')); 
+    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        // Tampilkan halaman create berita
         return view('news.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request)
-    {
-        // Validasi, 3 field ini diperlukan
-        // Jika ada yang kurang, di redirect ke halaman sebelumnya dengan error
-        $validated = $request->validate([
-            'title' => ['required'],
-            'content' => ['required'],
-            'image' => ['required'],
-        ]);
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+    ]);
 
-        // Acak nama gambar
-        // Alasan acak nama gambar agar tidak ada 2 gambar dengan nama yang sama
-        $imageName = $request->file('image')->hashName();
-
-        // Taruh nama gambar baru ke array validated untuk nanti disimpan ke database
-        $validated['image'] = $imageName;
-        
-        // Simpan gambar di folder public/news dengan nama yang diacak tadi
-        $newsDirectory = public_path() . '/news-images';
-        $request->file('image')->move($newsDirectory, $imageName);
-        
-        // insert row baru di table news dengan data didalam validated
-        News::create($validated);
-
-        // Redirect ke halaman index
-        return redirect()->route('news.index')->with('success', 'Data berhasil ditambahkan.');
+   
+    if ($request->hasFile('image')) {
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('news-images'), $imageName);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        // Search news dengan id yang sedang diedit
-        $news = News::find($id);
+    
+    News::create([
+        'title' => $request->title,
+        'content' => $request->content,
+        'image' => $imageName,
+    ]);
 
-        // Ke halaman edit dengan data news yang sedang diedit
+    
+    return redirect()->route('news.index')->with('success', 'News added successfully.');
+}
+
+
+    
+    public function edit($id)
+    {
+        $news = News::find($id);
         return view('news.edit', compact('news'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        // Validasi, bahwa 3 field ini diperlukan
-        // Jika ada yang kurang, di redirect ke halaman sebelumnya dengan error
-        $validated = $request->validate([
-            'title' => ['required'],
-            'content' => ['required'],
-            'image' => ['required'],
-        ]);
+    
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'image' => 'image|mimes:jpeg,png,jpg,gif',
+    ]);
 
-        // Search news dengan id yang sedang diedit
-        $news = News::find($id);
+    
+    $news = News::find($id);
 
-        // Hapus gambar lama
-        File::delete(public_path() . "/news-images/$news->image");
-
-        // Acak nama gambar
-        // Alasan acak nama gambar agar tidak ada 2 gambar dengan nama yang sama
-        $imageName = $request->file('image')->hashName();
-
-        // Taruh nama gambar baru ke array validated untuk nanti disimpan ke database
-        $validated['image'] = $imageName;
+    
+    if ($request->hasFile('image')) {
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('news-images'), $imageName);
         
-        // Simpan gambar di folder public/news dengan nama yang diacak tadi
-        $newsDirectory = public_path() . '/news-images';
-        $request->file('image')->move($newsDirectory, $imageName);
+    
+        if (file_exists(public_path("news-images/{$news->image}"))) {
+            unlink(public_path("news-images/{$news->image}"));
+        }
         
-        // Update dengan baru yang ada didalam array validated
-        $news->update($validated);
-
-        // Redirect ke halaman index
-        return redirect()->route('news.index')->with('success', 'Data berhasil diedit.');
+        
+        $news->image = $imageName;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    
+    $news->title = $request->title;
+    $news->content = $request->content;
+    $news->save();
+ 
+    return redirect()->route('news.index')->with('success', 'News updated successfully.');
+}
+
+
+    
+    public function destroy($id)
     {
-        // Search news dengan id bersangkutan
         $news = News::find($id);
-
-        // Hapus gambar lama
-        File::delete(public_path() . "/news-images/$news->image");
-
-        // Hapus row dari table News
         $news->delete();
-
-        // Redirect ke halaman index
-        return redirect()->route('news.index')->with('success', 'Data berhasil dihapus.');        
+        return redirect()->route('news.index')->with('success', 'Berita berhasil dihapus.');
     }
+    public function show($id)
+{
+    $news = News::findOrFail($id);
+    return view('news.show', compact('news')); 
+}
 }

@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,9 @@ Route::get('/tentang', function () {
 Route::get('/berita', function () {
     return view('berita');
 });
+Route::get('/berita', 'NewsController@berita')->name('berita');
+Route::get('/berita', [NewsController::class, 'berita'])->name('berita');
+Route::get('/berita/{id}', [NewsController::class, 'show'])->name('berita.show');
 
 Route::get('/galeri', function () {
     return view('galeri');
@@ -38,7 +43,7 @@ Route::get('/kontak',function () {
 });
 
 Route::get('/news', function () {
-    return view('news');
+    return view('login');
 })->middleware('auth');
 
 Route::get('/', [HomeController::class, 'index']);
@@ -70,8 +75,21 @@ Route::post('logout', function () {
     return redirect('/');
 })->name('logout');
 
-Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/gallery.admin', [GalleryController::class, 'index'])->name('gallery.index');
 
 // Tambah Berita
+Route::resource('gallery', GalleryController::class);
 Route::get('/gallery/create', [GalleryController::class, 'create'])->name('gallery.create');
-Route::post('/news', [GalleryController::class, 'store'])->name('gallery.store');
+Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
+Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+
+Route::get('/user/gallery', [GalleryController::class, 'showGallery'])->name('gallery.show');
+
+Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
+
+Route::get('/setting/edit', [SettingController::class, 'edit'])->name('settings.edit');
+Route::post('setting/update', [SettingController::class, 'update'])->name('settings.update');
+
+
+
+

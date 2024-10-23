@@ -14,7 +14,7 @@
             background-color: white;
         }
         header {
-            background-image: url('bg-tentang2.png');
+            background-image: url('/glry-img/bg-gallery.png');
             background-size: cover;
             background-position: center;
             color: white;
@@ -181,23 +181,24 @@
     </style>
 </head>
 </body>
-    <header>
-        <div class="logo">TASTY FOOD</div>
-        <nav>
-            <a href="/">HOME</a>
-            <a href="/tentang">TENTANG</a>
-            <a href="/berita">BERITA</a>
-            <a href="/gallery">GALERI</a>
-            <a href="/kontak">KONTAK</a>
-        </nav>
-        <div class="header-content">
-            <h1 style="font-weight: bold;">GALERI KAMI</h1>
-        </div>
-    </header>
+<header>
+    <div class="logo">TASTY FOOD</div>
+    <nav>
+        <a href="/">BERANDA</a>
+        <a href="/tentang">TENTANG</a>
+        <a href="/berita">BERITA</a>
+        <a href="/gallery">GALERI</a>
+        <a href="/kontak">KONTAK</a>
+    </nav>
+    <div class="header-content">
+        <h2>GALERI KAMI</h2>
+    </div>
+</header>
+   
 
     <div class="container">
         <div class="image-container">
-            <img id="slider-image" src="halgaleri1.jpg" alt="Galeri 1">
+            <img id="slider-image" src={{asset("glry2.jpg")}} alt="Galeri 1">
             <div class="navigation">
                 <button class="nav-button" onclick="prevImage()">&#60;</button>
                 <button class="nav-button" onclick="nextImage()">&#62;</button>
@@ -205,7 +206,7 @@
         </div>
     </div>
     <script>
-        const images = ["glry2.jpg", "glry1.jpg", "glry3.jpg", "glry4.jpg", "glry5.jpg", "glry6.jpg"];
+        const images = ["glry2.jpg", "glry1.jpg", "glry3.jpg", "glry4.jpg", "glry5.jpg", "glry6.jpg", "bg-tentang2.png"];
         let currentIndex = 0;
 
         function showImage(index) {
@@ -225,19 +226,14 @@
     </script>
 
     <div class="gallery-container">
-        <div class="gallery-item"><img src="halglry1.jpg" alt="Image 1"></div>
-        <div class="gallery-item"><img src="halglry2.jpg" alt="Image 2"></div>
-        <div class="gallery-item"><img src="halglry3.jpg" alt="Image 3"></div>
-        <div class="gallery-item"><img src="halglry4.jpg" alt="Image 4"></div>
-        <div class="gallery-item"><img src="halglry5.jpg" alt="Image 5"></div>
-        <div class="gallery-item"><img src="halglry6.jpg" alt="Image 6"></div>
-        <div class="gallery-item"><img src="brt-1.jpg" alt="Image 7"></div>
-        <div class="gallery-item"><img src="brt-4.jpg" alt="Image 8"></div>
-        <div class="gallery-item"><img src="brt-5.jpg" alt="Image 9"></div>
-        <div class="gallery-item"><img src="brt-3.jpg" alt="Image 10"></div>
-        <div class="gallery-item"><img src="brt-2.jpg" alt="Image 11"></div>
-        <div class="gallery-item"><img src="glry6.jpg" alt="Image 12"></div>
+        @foreach ($galleries as $gallery)
+        <div class="gallery-item">
+            <img src="{{ asset("gallery-images/$gallery->image") }}" alt="Gallery Image">
+        </div>
+        @endforeach
     </div>
+
+
 
 <footer>
     <div class="container">

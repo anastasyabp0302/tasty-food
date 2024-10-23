@@ -34,6 +34,8 @@
             color: white;
             text-decoration: none;
             margin: 0 14px;
+            font-size: 16px;
+        }
 
         .header-content {
             text-align: left;
@@ -118,7 +120,7 @@
         .map-container {
             width: 80%;
             border-radius: 20px;
-            overflow: hidden:
+            overflow: hidden;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
         .map-container iframe {
@@ -241,15 +243,15 @@
 <section class="map-section">
     <div class="map-container">
         <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.3433344101546!2d110.42106371535732!3d-7.791594494395404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a57b400f7c3e1%3A0xbdd1a1fef3af9f35!2sGadjah%20Mada%20University!5e0!3m2!1sen!2sid!4v1633087682917!5m2!1sen!2sid" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.5588068405023!2d107.66141237399778!3d-6.943211393056867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7c381e3c323%3A0x5f5160f6c9796e4b!2sCYBERLABS%20-%20Jasa%20Digital%20Marketing%20%7C%20Jasa%20Pembuatan%20Website%20%7C%20Jasa%20Pembuatan%20Aplikasi!5e0!3m2!1sid!2sid!4v1727152998472!5m2!1sid!2sid" 
             allowfullscreen=""
             loading="lazy"></iframe>
     </div>
 </section>
 
 <footer class="footer">
-    <div class="footer-container">
-        <div class="footer-column">
+    <div class="footer-section">
+    <div class="footer-column">
             <h3>Tasty Food</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             <div class="footer-social">
@@ -285,3 +287,4 @@
 
 </body>
 </html>
+

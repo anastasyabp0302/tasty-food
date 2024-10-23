@@ -62,30 +62,16 @@
                         </li>
                         <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('gallery.index')}}">
+                            <a class="nav-link" href="{{ route('gallery.index') }}">
                             <i class="fa-regular fa-images"></i> Gallery
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">
-                            <i class="fa-solid fa-address-book"></i> Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="login">
                             <i class="fa-regular fa-user"></i> Users
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa-solid fa-chart-line"></i> Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa-solid fa-cog"></i> Settings
-                            </a>
-                        </li>
+                        
                          <!-- Tambahkan tombol Logout -->
             <li class="nav-item mt-3">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
@@ -105,6 +91,9 @@
                     <a href="{{ route('news.create') }}" class="btn btn-primary">
                         <i class="fa-solid fa-plus"></i> New
                     </a>
+                    <a href="{{ url('/berita') }}" class="btn btn-success">
+                    <i class="fa-solid fa-eye"></i> View
+                </a>
                 </div>
 
                 @if (Session::has('success'))

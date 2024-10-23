@@ -67,25 +67,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">
-                            <i class="fa-solid fa-address-book"></i> Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="#">
                             <i class="fa-regular fa-user"></i> Users
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa-solid fa-chart-line"></i> Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa-solid fa-cog"></i> Settings
-                            </a>
-                        </li>
+            
                          <!-- Tambahkan tombol Logout -->
             <li class="nav-item mt-3">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
@@ -105,6 +91,13 @@
         <a href="{{ route('gallery.create') }}" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> Add New
         </a>
+        
+    
+    <a href="{{ route('gallery.show') }}" class="btn btn-success">
+        <i class="fa-solid fa-eye"></i> Lihat
+    </a>
+
+
     </div>
 
     <!-- Flash Messages -->
@@ -124,31 +117,34 @@
             <tr class="text-center">
                 <th>No</th>
                 <th>Preview</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($galleries as $gallery)
-            <tr class="align-middle text-center">
-                <td>{{ $loop->iteration }}</td>
-                <td>
-                    <img src="{{ asset("gallery-images/$gallery->image") }}" class="img-thumbnail" style="max-width: 150px; height: auto;" alt="image">
-                </td>
-                <td>{{ $gallery->title }}</td>
-                <td class="text-start">{{ Str::limit($gallery->description, 50) }}</td>
-                <td>
-                    <a href="{{ route('gallery.edit', $gallery->id) }}" class="btn btn-warning mb-2">
-                        <i class="fa-solid fa-edit"></i> Edit
-                    </a>
-                    <button class="btn btn-danger" onclick="handleDelete({{ $gallery->id }})">
-                        <i class="fa-solid fa-trash"></i> Delete
+            @if($galleries->isEmpty())
+                <tr>
+                    <td colspan="2" class="text-center">No galleries found.</td>
+                </tr>
+            @else
+                @foreach ($galleries as $key => $gallery)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td class="text-center">
+                        <img src="{{ asset("gallery-images/$gallery->image") }}" alt="Gallery Image" width="100">
+                    </td>
+                    <td> 
+                    <button class="btn btn-danger" onclick="handleDelete({{ $gallery->id}})">
+                                    <i class="fa-solid fa-trash"></i> Delete
                     </button>
+
                     <form action="{{ route('gallery.destroy', $gallery->id) }}" method="POST" id="form-delete-{{ $gallery->id }}" class="d-none">
-                        @csrf
-                        @method('DELETE')
+                    @csrf
+                    @method('DELETE')
                     </form>
                 </td>
-            </tr>
-            @endforeach
+                </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 </main>
@@ -168,6 +164,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-c5e0b3d4c2a4be8f5d1b70c61a865a3969de1cb8f1a8f1a75d1dbb7d1f6cd81f"
         crossorigin="anonymous"></script>
+
+        <script>
+        const handleDelete = (id) => {
+            if (confirm('Hapus data ini?')) {
+                document.getElementById(`form-delete-${id}`).submit();
+            }
+        }
+    </script>
 </body>
 
 </html>

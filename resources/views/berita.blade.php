@@ -97,6 +97,16 @@
             font-weight: bold;
         }
 
+        .news-section {
+            margin-top: 50px;
+        }
+
+        .news-section h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        
         .news-grid {
             display: flex;
             flex-wrap: wrap;
@@ -205,7 +215,7 @@
             <a href="/">HOME</a>
             <a href="tentang">TENTANG</a>
             <a href="/berita">BERITA</a>
-            <a href="/gallery">GALERI</a>
+            <a href="/user/gallery">GALERI</a>
             <a href="/kontak">KONTAK</a>
         </nav>
         <div class="header-content">
@@ -225,71 +235,20 @@
         </section>
 
         <section class="news-grid">
-            <div class="news-card">
-                <img src="brt-2.jpg" alt="Berita 1">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="brt-3.jpg" alt="Berita 2">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="brt-4.jpg" alt="Berita 3">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="brt-5.jpg" alt="Berita 4">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="brt-2.jpg" alt="Berita 5">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="brt-3.jpg" alt="Berita 6">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="brt-4.jpg" alt="Berita 7">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="brt-5.jpg" alt="Berita 8">
-                <div class="news-card-content">
-                    <h3>LOREM IPSUM</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, augue eu rutrum commodo.</p>
-                    <a href="#">Baca selengkapnya</a>
-                </div>
-            </div>
-            </div>
+        <h2>Berita Lainnya</h2>
+    <div class="news-grid">
+    @foreach($news as $new)
+    <div class="news-card">
+        <img src="{{ asset('news-images/' . $new->image) }}" alt="{{ $new->title }}">
+        <div class="news-card-content">
+            <h3>{{ $new->title }}</h3>
+            <p>{{ Str::limit($new->content, 100) }}</p>
+            <a href="{{ route('berita.show', $new->id) }}" class="read-more">Baca Selengkapnya</a>
+        </div>
+    </div>
+@endforeach
+    </div>
+</section>
         </section>
     </main>
 
