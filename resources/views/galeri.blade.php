@@ -117,6 +117,35 @@
             transform: scale(1.05);
         }
 
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .pagination li.active a {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .pagination li.disabled a {
+            color: #aaa;
+        }
+
+        
         footer {
             background-color: black;
             color: #fff;
@@ -187,7 +216,7 @@
         <a href="/">BERANDA</a>
         <a href="/tentang">TENTANG</a>
         <a href="/berita">BERITA</a>
-        <a href="/gallery">GALERI</a>
+        <a href="/user/gallery">GALERI</a>
         <a href="/kontak">KONTAK</a>
     </nav>
     <div class="header-content">
@@ -233,7 +262,10 @@
         @endforeach
     </div>
 
-
+    <!-- Tambahkan ini untuk paginasi -->
+ <div class="pagination-links">
+            {{ $galleries->links('pagination::bootstrap-5') }}
+        </div>
 
 <footer>
     <div class="container">
@@ -268,7 +300,7 @@
             <ul>
                 <li><a href="mailto:tastyfood@gmail.com"><img src="pesan.png" alt="Email" class="icon">tastyfood@gmail.com</a></li>
                 <li><a href="tel:+6281234567890"><img src="telp.png" alt="Phone" class="icon">+62 812 3456 7890</a></li>
-                <li><a href="#"><img src="lokasi.png" alt="Location" class="icon">Kota Bandung, Jawa Barat</a></li>
+                <li><a href="#"><img src="lokasi.png" alt="lokasi.png" class="icon">Kota Bandung, Jawa Barat</a></li>
             </ul>
         </div>
     </div>

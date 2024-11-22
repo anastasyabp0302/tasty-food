@@ -111,6 +111,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
+            margin-top: 20px;
         }
 
         .news-card {
@@ -236,6 +237,7 @@
 
         <section class="news-grid">
         <h2>Berita Lainnya</h2>
+        
     <div class="news-grid">
     @foreach($news as $new)
     <div class="news-card">

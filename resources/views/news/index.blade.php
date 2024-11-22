@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- FontAwesome 6.3.0 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -66,6 +68,12 @@
                             <i class="fa-regular fa-images"></i> Gallery
                             </a>
                         </li>
+                        <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('about.index') }}">
+                            <i class="fa-regular fa-images"></i> About
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login">
                             <i class="fa-regular fa-user"></i> Users
@@ -88,9 +96,10 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">List News</h1>
-                    <a href="{{ route('news.create') }}" class="btn btn-primary">
-                        <i class="fa-solid fa-plus"></i> New
-                    </a>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createNewsModal">
+                      <i class="fa-solid fa-plus"></i> Tambah
+                    </button>
+
                     <a href="{{ url('/berita') }}" class="btn btn-success">
                     <i class="fa-solid fa-eye"></i> View
                 </a>
@@ -148,6 +157,64 @@
         </div>
     </div>
 
+    <div class="modal fade" id="createNewsModal" tabindex="-1" aria-labelledby="createNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="createNewsModalLabel">Tambah News</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="{{ route('news.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <!-- Input Judul -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Judul</label>
+                        <input type="text" name="title" id="title" class="form-control" required>
+                    </div>
+                    <!-- Input Isi -->
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Isi</label>
+                        <textarea name="content" id="content" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <!-- Input Gambar -->
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Gambar</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                    </div>
+                    <!-- Error Handling -->
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa-solid fa-save"></i> Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const openNewsModal = document.getElementById('openNewsModal');
+const createNewsModal = new bootstrap.Modal(document.getElementById('createNewsModal'));
+openNewsModal.addEventListener('click', () => {
+    createNewsModal.show();
+</script>
+
+
     <script>
         const handleDelete = (id) => {
             if (confirm('Hapus data ini?')) {
@@ -160,6 +227,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-c5e0b3d4c2a4be8f5d1b70c61a865a3969de1cb8f1a8f1a75d1dbb7d1f6cd81f"
         crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-c5e0b3d4c2a4be8f5d1b70c61a865a3969de1cb8f1a8f1a75d1dbb7d1f6cd81f"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

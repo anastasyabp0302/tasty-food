@@ -201,7 +201,7 @@
         <a href="/">BERANDA</a>
         <a href="/tentang">TENTANG</a>
         <a href="/berita">BERITA</a>
-        <a href="/gallery">GALERI</a>
+        <a href="/user/gallery">GALERI</a>
         <a href="/kontak">KONTAK</a>
     </nav>
     <div class="header-content">

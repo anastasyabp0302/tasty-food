@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,12 +85,13 @@ Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.stor
 Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 
 Route::get('/user/gallery', [GalleryController::class, 'showGallery'])->name('gallery.show');
+Route::get('user/gallery-more', [GalleryController::class, 'showMore']);
 
 Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
 
 Route::get('/setting/edit', [SettingController::class, 'edit'])->name('settings.edit');
 Route::post('setting/update', [SettingController::class, 'update'])->name('settings.update');
 
-
+Route::resource('about', AboutController::class);
 
 

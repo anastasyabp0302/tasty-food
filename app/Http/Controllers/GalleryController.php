@@ -108,7 +108,7 @@ class GalleryController extends Controller
 
 public function showGallery()
 {
-    $galleries = Gallery::all();
+    $galleries = Gallery::paginate(12);
     return view('galeri', compact('galleries'));
 }
 
